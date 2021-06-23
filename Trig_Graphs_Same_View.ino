@@ -1,6 +1,6 @@
 /*
-This program should plot a graph of random numbers with "random x" as the x-axis title and "random y" on the y-axis
-The graph should have discrete points and be titled "random"
+This program should plot a trig graphs in one view
+The graphs should have discrete points
 */
 
 
@@ -10,7 +10,7 @@ void setup() {
   // put your setup code here, to run once:
   PhyphoxBLE::start();
 
-  PhyphoxBleExperiment trigGraphsExp; //This is to generate my random graph plotting experiment
+  PhyphoxBleExperiment trigGraphsExp; //This is to generate my trig graph plotting experiment
   trigGraphsExp.setTitle("Trig Graph Plotter");
   trigGraphsExp.setCategory("Phyphox Arduino Experiments");
 
