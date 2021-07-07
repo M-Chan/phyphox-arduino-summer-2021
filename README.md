@@ -1,5 +1,12 @@
 # phyphox-arduino-summer-2021
-Arduino .ino files I wrote during my 2021 summer Physics internship
+Arduino .ino files and .phyphox files (basically XML) I wrote during my 2021 summer Physics internship
+
+## acknowledgements
+A lot of this code has been modified from the original phyphox app experiments using their open source .phyphox files
+These are available from this github: https://github.com/phyphox/phyphox-experiments
+
+Many thanks to my supervisor Dr Davies for guiding me through this project
+
 
 ## screenshots
 For the random data plot...
