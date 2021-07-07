@@ -1,5 +1,5 @@
-# phyphox-arduino-summer-2021
-Arduino .ino files and .phyphox files (basically XML) I wrote during my 2021 summer Physics internship
+# Visualising Remote Sensor Data on a Mobile Phone
+Arduino .ino files and .phyphox files (basically XML) I created during my 2021 summer Physics internship
 
 ## acknowledgements
 A lot of this code has been modified from the original phyphox app experiments using their open source .phyphox files
