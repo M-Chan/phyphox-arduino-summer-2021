@@ -8,14 +8,19 @@ These are available from this github: https://github.com/phyphox/phyphox-experim
 Many thanks to my supervisor Dr Davies for guiding me through this project
 
 
-## screenshots
-For the random data plot...
-![random data points](https://user-images.githubusercontent.com/81781462/123165695-7508ce80-d46c-11eb-98ce-e437ac9ce44e.jpg)
+## folders and files
+The 'simple-data-plots' folder is me testing how to write .ino files that allows data to be transfered from the Arduino Nano to the Phyphox app
+The 'accelerometer-sensor' fodler has .ino files and is me testing how to access the sensor on an Arduino Nano
+The 'imu-statistics-phyphox-files' folder has .phyphox files for the accelerometer, gyroscope and magnetometer. Each file plots graphs of each axial component variable w.r.t. time and a histogram showing the count distribution with a fitted Gaussian curve
 
+
+
+
+## screenshots
 For the trig graphs on the same view...
 ![trig graphs (same view)](https://user-images.githubusercontent.com/81781462/123165714-7df9a000-d46c-11eb-8cee-c6439fbced72.jpg)
 
-For the x-accelerometer data plot...
-![x-accelerometer test](https://user-images.githubusercontent.com/81781462/123165750-86ea7180-d46c-11eb-8721-3e09e5e0cee6.jpg)
+For the 3d accelerometer data plot...
+![3D accelerometer](https://user-images.githubusercontent.com/81781462/124750684-ad54e600-df1d-11eb-8fa6-12b7c9b51826.jpg)
 
 
