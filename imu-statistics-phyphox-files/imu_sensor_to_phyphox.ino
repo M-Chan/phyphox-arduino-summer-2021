@@ -94,7 +94,7 @@ void gyroscopeChoice() {
       first_time = millis();
       IMU.readGyroscope(gyrx, gyry, gyrz);
       first_difference_float = ((float)first_time-(float)initial_time)/1000;
-      gyr = sqrt(pow(gyrx, 2) + pow (gyry, 2) + pow(gyrz, 2));
+      gyr = sqrt(pow(gyrx, 2) + pow(gyry, 2) + pow(gyrz, 2));
       PhyphoxBLE::write(first_difference_float, gyrx, gyry, gyrz, gyr);
     }
 }
