@@ -13,8 +13,11 @@ Many thanks to my supervisor Dr Davies for guiding me through this project
 
 ## Folders and Files
 The 'simple-data-plots' folder is me testing how to write .ino files that allows data to be transfered from the Arduino Nano to the Phyphox app
+
 The 'accelerometer-sensor' folder has .ino files and is me testing how to access the sensor on an Arduino Nano
+
 The 'imu-statistics-phyphox-files' folder has .phyphox files for the accelerometer, gyroscope and magnetometer. Each file plots graphs of each axial component variable w.r.t. time and a histogram showing the count distribution with a fitted Gaussian curve. It also includes the .ino file to upload to the Arduino Nano allowing for the data transfer.
+
 The 'forced-oscillator-experiment' has the.phyphox files for retrieving the data from this experiment. The ocillator-exp.phyphox file just has the acceleration w.r.t. time graph and the FFT graph; no resonance curve added. (Note you will need the .ino file in the above folder to access the accelerometer). The resonance-attempt file is me trying to add a resonance curve and after trying many different things this is the last try - still not a resonance curve in the end but maybe the code would be of use.
 
 
