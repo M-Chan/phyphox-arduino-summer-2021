@@ -7,8 +7,6 @@ Test to access the Arduino's accelerometer
 
 
 void setup() {
-  // put your setup code here, to run once:
- 
   PhyphoxBLE::start();
 
   PhyphoxBleExperiment accelerometerExp; //This is to generate my experiment
@@ -32,21 +30,19 @@ void setup() {
   PhyphoxBLE::addExperiment(accelerometerExp); //Attaches this experiment to the server for writing the data to the Arduino
 
   if (!IMU.begin()) {
-    while (1);
+    while (1); //terminates program if sensors aren't found
   }
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
   float x, y,z;
   
   if (IMU.accelerationAvailable()) {
-    IMU.readAcceleration(x, y, z);
+    IMU.readAcceleration(x, y, z); //reads sensor data
   }
   
   x = 100*x;
 
-  PhyphoxBLE::write(x,y,z);
-  delay(1000);
+  PhyphoxBLE::write(x,y,z); //writes to server
+  delay(1000); //delays by 1 second
 }
