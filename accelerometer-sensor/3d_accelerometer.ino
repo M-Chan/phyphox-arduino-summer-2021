@@ -7,14 +7,13 @@ The graphs should have discrete points
 #include <Arduino_LSM9DS1.h>
 
 void setup() {
-  // put your setup code here, to run once:
   PhyphoxBLE::start();
 
   PhyphoxBleExperiment tdAccelerometerExp; //This is to generate my 3d accelerometer experiment
   tdAccelerometerExp.setTitle("3D Acceleration");
   tdAccelerometerExp.setCategory("Phyphox Arduino Experiments");
 
-  PhyphoxBleExperiment::Graph xGraph; //Creates the graph
+  PhyphoxBleExperiment::Graph xGraph; //Creates the graph for the x acceleration w.r.t. time
   xGraph.setLabel("X Acceleration Graph");
   xGraph.setLabelX("Time");
   xGraph.setUnitX("s");
@@ -23,7 +22,7 @@ void setup() {
   xGraph.setStyle("dots"); //Makes each data point a dot
   xGraph.setChannel(0,1); //Plots x and y from paramaters in the server (write - later in the loop) 
 
-  PhyphoxBleExperiment::Graph yGraph; //Creates the graph
+  PhyphoxBleExperiment::Graph yGraph; //Creates the graph for the y acceleration w.r.t. time
   yGraph.setLabel("Y Acceleration Graph");
   yGraph.setLabelX("Time");
   yGraph.setUnitX("s");
@@ -32,7 +31,7 @@ void setup() {
   yGraph.setStyle("dots"); //Makes each data point a dot
   yGraph.setChannel(0,2); //Plots x and y from paramaters in the server (write - later in the loop) 
 
-  PhyphoxBleExperiment::Graph zGraph; //Creates the graph
+  PhyphoxBleExperiment::Graph zGraph; //Creates the graph for the z acceleration w.r.t. time
   zGraph.setLabel("Z Acceleration Graph");
   zGraph.setLabelX("Time");
   zGraph.setUnitX("s");
@@ -51,20 +50,19 @@ void setup() {
   PhyphoxBLE::addExperiment(tdAccelerometerExp); //Attaches this experiment to the server for writing the data to the Arduino
 
   if (!IMU.begin()) {
-    while (1);
+    while (1); // terminates the program is sensors are not found
   }
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-    
+   
   float x, y,z;
   
   if (IMU.accelerationAvailable()) {
-    IMU.readAcceleration(x, y, z);
+    IMU.readAcceleration(x, y, z); // reads the accelerometer data
   }
   
-  PhyphoxBLE::write(x,y,z);
+  PhyphoxBLE::write(x,y,z); // writes it to the server
   
-  delay(1000);
+  delay(1000); //1 second delay between readings
 }
