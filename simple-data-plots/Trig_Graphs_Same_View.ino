@@ -7,14 +7,13 @@ The graphs should have discrete points
 #include <phyphoxBle.h>
 
 void setup() {
-  // put your setup code here, to run once:
   PhyphoxBLE::start();
 
   PhyphoxBleExperiment trigGraphsExp; //This is to generate my trig graph plotting experiment
   trigGraphsExp.setTitle("Trig Graph Plotter");
   trigGraphsExp.setCategory("Phyphox Arduino Experiments");
 
-  PhyphoxBleExperiment::Graph sineGraph; //Creates the graph
+  PhyphoxBleExperiment::Graph sineGraph; //Creates the sine graph
   sineGraph.setLabel("Sine Graph");
   sineGraph.setLabelX("Angle");
   sineGraph.setUnitX("rads");
@@ -23,7 +22,7 @@ void setup() {
   sineGraph.setStyle("dots"); //Makes each data point a dot
   sineGraph.setChannel(1,2); //Plots x and y from paramaters in the server (write - later in the loop) 
 
-  PhyphoxBleExperiment::Graph cosineGraph; //Creates the graph
+  PhyphoxBleExperiment::Graph cosineGraph; //Creates the cosine graph
   cosineGraph.setLabel("Cosine Graph");
   cosineGraph.setLabelX("Angle");
   cosineGraph.setUnitX("rads");
@@ -32,7 +31,7 @@ void setup() {
   cosineGraph.setStyle("dots"); //Makes each data point a dot
   cosineGraph.setChannel(1,3); //Plots x and y from paramaters in the server (write - later in the loop) 
 
-  PhyphoxBleExperiment::Graph tanGraph; //Creates the graph
+  PhyphoxBleExperiment::Graph tanGraph; //Creates the tan graph
   tanGraph.setLabel("Tan Graph");
   tanGraph.setLabelX("Angle");
   tanGraph.setUnitX("rads");
@@ -53,14 +52,12 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-    
-    for (float i = -360; i <= 360; i += 1){
-    float y1 = sin((i*PI)/180);
-    float y2 = cos((i*PI)/180);
-    float y3 = tan((i*PI)/180);
-    float x = (i*PI)/180;
-    PhyphoxBLE::write(x,y1,y2,y3);    //Sends random values to phyphox to plot in the trig graph made
+    for (float i = -360; i <= 360; i += 1){ //only allows angles between -360 and 360 degrees to be plotted
+    float y1 = sin((i*PI)/180); //calculates sin(angle in rads)
+    float y2 = cos((i*PI)/180); //calculates cos(angle in rads)
+    float y3 = tan((i*PI)/180); //calculates tan(angle in rads)
+    float x = (i*PI)/180; //converts angle from degrees to radians
+    PhyphoxBLE::write(x,y1,y2,y3);    //writes the angles and trig values to phyphox to plot in the trig graph made
     delay(100);                  //Tenth of a second pause before next data point
     }
 }
