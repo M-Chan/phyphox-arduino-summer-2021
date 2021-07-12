@@ -18,8 +18,9 @@ The 'accelerometer-sensor' folder has .ino files and is me testing how to access
 
 The 'imu-statistics-phyphox-files' folder has .phyphox files for the accelerometer, gyroscope and magnetometer. Each file plots graphs of each axial component variable w.r.t. time and a histogram showing the count distribution with a fitted Gaussian curve. It also includes the .ino file to upload to the Arduino Nano allowing for the data transfer.
 
-The 'forced-oscillator-experiment' has the.phyphox files for retrieving the data from this experiment. The ocillator-exp.phyphox file just has the acceleration w.r.t. time graph and the FFT graph; no resonance curve added. (Note you will need the .ino file in the above folder to access the accelerometer). The resonance-attempt file is me trying to add a resonance curve and after trying many different things this is the last try - still not a resonance curve in the end but maybe the code would be of use.
-
+The 'forced-oscillator-experiment' has the.phyphox files for retrieving the data from this experiment. The ocillator-exp.phyphox file just has the acceleration w.r.t. time graph and the FFT graph; no resonance curve added. (Note you will need the .ino file in the above folder to access the accelerometer). I have tried to add a resonance curve and this folder includes some of the attempts I have made - still not a resonance curve in the end but the code might still be of use. 
+**Note: you can find the resonance frequency using the FFT graph and reading the peak frequency after setting the Arduino oscillating without the vibration generator**
+**Note: the resonance attempts are not actually in attempt order (last attempt is not necessarily the best)**
 
 
 ## Screenshots
@@ -32,3 +33,8 @@ For the 3d accelerometer data plot...
 For one of the imu-statistics (magnetometer)...
 ![magnetometer_view1](https://user-images.githubusercontent.com/81781462/124754027-9ca66f00-df21-11eb-8608-c91ac305c41c.jpeg)
 
+Oscillator Experiment without Resonance Curve (Vibration generator turned off)...
+![osc_exp](https://user-images.githubusercontent.com/81781462/125269454-9e48ac00-e300-11eb-9424-44884556aabe.jpeg)
+
+Resonance Attempt 1...
+![Res1](https://user-images.githubusercontent.com/81781462/125268599-c2f05400-e2ff-11eb-910d-938fec9073e3.jpeg)
