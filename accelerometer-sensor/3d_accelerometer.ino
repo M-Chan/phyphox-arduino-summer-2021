@@ -50,7 +50,7 @@ void setup() {
   PhyphoxBLE::addExperiment(tdAccelerometerExp); //Attaches this experiment to the server for writing the data to the Arduino
 
   if (!IMU.begin()) {
-    while (1); // terminates the program is sensors are not found
+    while (1); // terminates the program if sensors are not found
   }
 }
 
