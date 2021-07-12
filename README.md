@@ -38,6 +38,7 @@ Oscillator Experiment without Resonance Curve (Vibration generator turned off)..
 
 Resonance Attempt 1...
 ![Res1](https://user-images.githubusercontent.com/81781462/125272098-5ecf8f00-e303-11eb-8465-9da422567346.jpeg)
+![Res1-2](https://user-images.githubusercontent.com/81781462/125280003-7cedbd00-e30c-11eb-8787-9bde457dbb36.jpeg)
 
 Resonance Attempt 2...
 ![res2](https://user-images.githubusercontent.com/81781462/125272020-43fd1a80-e303-11eb-8dd6-5f8726381590.jpeg)
