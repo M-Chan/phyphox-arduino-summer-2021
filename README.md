@@ -8,7 +8,7 @@ For the .ino files, some of it was based on files from https://github.com/phypho
 
 The .ino file for allowing Phyphox to access the IMU sensor data was modified from https://hebergement.universite-paris-saclay.fr/phyphox/nano_phyphox_v1.ino
 
-Many thanks to my supervisor Dr Davies for guiding me through this project
+Special thanks to my supervisor Dr Davies for providing me with this project and guiding me throughout. Many thanks to Dr Cubiss for providing suggestions for contructing a resonance curve manually.
 
 
 ## Folders and Files
