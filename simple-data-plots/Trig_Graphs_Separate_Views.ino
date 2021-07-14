@@ -14,7 +14,7 @@ void setup() {
   trigGraphsExp.setTitle("Trig Graph Plotter");
   trigGraphsExp.setCategory("Phyphox Arduino Experiments");
 
-  PhyphoxBleExperiment::Graph sineGraph; //Creates the graph
+  PhyphoxBleExperiment::Graph sineGraph; //Creates the sine graph
   sineGraph.setLabel("Sine Graph");
   sineGraph.setLabelX("Angle");
   sineGraph.setUnitX("rads");
@@ -23,12 +23,12 @@ void setup() {
   sineGraph.setStyle("dots"); //Makes each data point a dot
   sineGraph.setChannel(1,2); //Plots x and y from paramaters in the server (write - later in the loop) 
 
-  PhyphoxBleExperiment::View firstView; //Creates a view
+  PhyphoxBleExperiment::View firstView; //Creates the sine graph view
   firstView.setLabel("Sine");
-  firstView.addElement(sineGraph); //Adds the graph to this view
+  firstView.addElement(sineGraph); //Adds the sine graph to this view
 
 
-  PhyphoxBleExperiment::Graph cosineGraph; //Creates the graph
+  PhyphoxBleExperiment::Graph cosineGraph; //Creates the cosine graph
   cosineGraph.setLabel("Cosine Graph");
   cosineGraph.setLabelX("Angle");
   cosineGraph.setUnitX("rads");
@@ -37,12 +37,12 @@ void setup() {
   cosineGraph.setStyle("dots"); //Makes each data point a dot
   cosineGraph.setChannel(1,3); //Plots x and y from paramaters in the server (write - later in the loop) 
 
-  PhyphoxBleExperiment::View midView; //Creates a view
+  PhyphoxBleExperiment::View midView; //Creates the cosine graph view
   midView.setLabel("Cosine");
-  midView.addElement(cosineGraph); //Adds the graph to this view
+  midView.addElement(cosineGraph); //Adds the cosine graph to this view
 
 
-  PhyphoxBleExperiment::Graph tanGraph; //Creates the graph
+  PhyphoxBleExperiment::Graph tanGraph; //Creates the tan graph
   tanGraph.setLabel("Tan Graph");
   tanGraph.setLabelX("Angle");
   tanGraph.setUnitX("rads");
@@ -51,14 +51,14 @@ void setup() {
   tanGraph.setStyle("dots"); //Makes each data point a dot
   tanGraph.setChannel(1,4); //Plots x and y from paramaters in the server (write - later in the loop) 
 
-  PhyphoxBleExperiment::View lastView; //Creates a view
+  PhyphoxBleExperiment::View lastView; //Creates the tan graph view
   lastView.setLabel("Tan");
-  lastView.addElement(tanGraph); //Adds the graph to this view
+  lastView.addElement(tanGraph); //Adds the tan graph to this view
 
 
-  trigGraphsExp.addView(firstView); //Adds the view to the experiment
-  trigGraphsExp.addView(midView); //Adds the view to the experiment
-  trigGraphsExp.addView(lastView); //Adds the view to the experiment
+  trigGraphsExp.addView(firstView); //Adds the sine graph view to the experiment
+  trigGraphsExp.addView(midView); //Adds the cosine graph view to the experiment
+  trigGraphsExp.addView(lastView); //Adds the tan graph view to the experiment
   PhyphoxBLE::addExperiment(trigGraphsExp); //Attaches this experiment to the server for writing the data to the Arduino
   
 }
