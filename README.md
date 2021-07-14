@@ -49,3 +49,6 @@ Resonance Attempt 3...
 ![res3-1](https://user-images.githubusercontent.com/81781462/125291330-2c309100-e319-11eb-96e5-b4dc2878ae9c.png)
 ![Res3-2](https://user-images.githubusercontent.com/81781462/125291341-2f2b8180-e319-11eb-96c2-06b6422ee2d4.jpeg)
 
+Resonance Attempt 4...
+**Note: Unlike the other attempts, this one requires changing the driving frequency to produce a resonance graph**
+![Res4](https://user-images.githubusercontent.com/81781462/125617753-2249a2de-de47-4595-947a-25b39ce7c0a4.jpeg)
