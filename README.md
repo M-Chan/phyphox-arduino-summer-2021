@@ -56,3 +56,9 @@ Resonance Attempt 4...
 
 
 ## Manually Produced Resonance Curves
+Using the oscillator-exp.phyphox file, I performed the forced driven oscillator experiment and changed the driving frequency. I then plotted the outputted Max FFT reading with respect to the peak frequency using Origin. The resulting graph is shown below...
+![Res1](https://user-images.githubusercontent.com/81781462/125691634-8ff695b3-6cd5-48b7-bf26-1a6a30cfdded.png)
+
+
+Using the oscillator-exp-stats.phyphox file, I did the exact same thing as before but plotted the *average* Max FFT reading with respect to the *average* peak frequency with x-error bars using Origin. The resulting graph is shown below...
+![res-stats-2](https://user-images.githubusercontent.com/81781462/125691649-e2a0b62d-9290-4bfd-bd1f-e7124f54227b.png)
