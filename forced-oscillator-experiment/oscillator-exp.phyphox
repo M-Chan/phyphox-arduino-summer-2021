@@ -116,7 +116,7 @@
         </add>
 
 	<add>
-            <input type="value">2048</input>
+            <input type="value">1024</input>
             <output>samples</output>
         </add>
 		
