@@ -13,12 +13,8 @@ float gyrx, gyry, gyrz, gyr;
 float magx, magy, magz, magn;
 int red, green, blue, ambient;
 float red_float, green_float, blue_float, ambient_float;
-const int analogInPin1 = A0; // change here to read another analog input
-const int analogInPin2 = A1;
-const int analogInPin3 = A2;
-float voltage1, voltage2, voltage3;
-unsigned long initial_time, first_time, fourth_time;
-float first_difference_float, fourth_difference_float;
+unsigned long initial_time, first_time;
+float first_difference_float;
 unsigned int period = 50;
 const int ledPin = 22;
 const int ledPin2 = 23;
@@ -107,15 +103,4 @@ void magnetometerChoice() {
       magn = sqrt(pow(magx, 2) + pow (magy, 2) + pow(magz, 2));
       PhyphoxBLE::write(first_difference_float, magx, magy, magz, magn);
     }
-}
-
-
-void analogChoice() { // reads the analog input selected at the beginning
-    first_time = millis();
-    voltage1 = analogRead(analogInPin1);
-    voltage2 = analogRead(analogInPin2);
-    voltage3 = analogRead(analogInPin3);
-    first_difference_float = ((float)first_time-(float)initial_time)/1000;
-    PhyphoxBLE::write(first_difference_float, voltage1, voltage2, voltage3);
-    delay(2);
 }
