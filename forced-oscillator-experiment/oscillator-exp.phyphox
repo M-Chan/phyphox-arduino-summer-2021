@@ -5,7 +5,6 @@
     <description>
             Displays the frequency spectrum of data from the accelerometer.
             This experiment records data from the accelerometer and calculates its frequency spectrum through a Fast Fourier Transformation (FFT). The maximum detectable frequency depends on the maximum acquisition rate of your sensor.
-            The Resonance graph is also produced.
     </description>
 
 
