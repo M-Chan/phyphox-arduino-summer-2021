@@ -1,0 +1,496 @@
+<phyphox version="1.12" locale="en">
+    <title>Oscillator Experiment Res4</title>
+    <category>Phyphox Arduino Experiments</category>
+    <icon format="base64">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</icon>
+    <description>
+            Displays the frequency spectrum of data from the accelerometer.
+            This experiment records data from the accelerometer and calculates its frequency spectrum through a Fast Fourier Transformation (FFT). The maximum detectable frequency depends on the maximum acquisition rate of your sensor.
+            The Resonance graph is also produced.
+    </description>
+
+
+
+    <data-containers>
+        <container size="0">time</container>
+        <container size="0">accX</container>
+        <container size="0">accY</container>
+        <container size="0">accZ</container>
+        <container size="0">acc</container>
+        <container size="500">anyAcc</container>
+
+        <container size="2048">halfFrequency</container>
+        <container size="2048">fft</container>
+		<container size="2048">maxfft</container>
+        <container size="0">f0</container>
+        <container size="1">actual_samples</container>
+        <container size="1">period</container>
+        <container size="1">maxf</container>
+
+        <container size="4096">time_subrange</container>
+        <container size="1">subrange_start</container>
+        <container size="4096">accX_subrange</container>
+        <container size="4096">accY_subrange</container>
+        <container size="4096">accZ_subrange</container>
+        <container size="4096">acc_subrange</container>
+        <container size="4096">anyAcc_subrange</container>
+        <container size="1">recording_length</container>
+        <container init="256">samples</container>
+        <container size="1">actual_samples</container>
+        <container size="1">actual_samples+1</container>
+        <container size="1">arate</container>
+        <container size="4096">frequency</container>
+        <container size="1">count-1</container>
+        <container size="1">count</container>
+
+
+        <container size="1">f1</container>
+        <container size="1">N</container>
+        <container size="1">2N</container>
+
+
+        <container size="1">count/2</container>
+        <container size="1">dt</container>
+        <container size="1">Dt</container>
+        <container size="1">t0</container>
+        <container size="1">t1</container>
+
+        <container size="2048">fftX</container>
+        <container size="2048">fftY</container>
+        <container size="2048">fftZ</container>
+        <container size="2048">fft2</container>
+
+        <container size="4096">fftXX</container>
+        <container size="4096">fftYX</container>
+        <container size="4096">fftZX</container>
+        <container size="4096">fftXY</container>
+        <container size="4096">fftYY</container>
+        <container size="4096">fftZY</container>
+
+        <container size="2048">halfFFTtempX</container>
+        <container size="2048">halfFFTtempY</container>
+        <container size="2048">halfFFTtempX2</container>
+        <container size="2048">halfFFTtempY2</container>
+
+
+        <container size="0">frequencyhist</container>
+        <container size="0">amplitudehist</container>
+
+        <container size="1">amplitude</container>
+		<container size="1">abs_amplitude</container>
+        <container size="1">omega</container>
+    </data-containers>
+
+
+
+    <input>
+        <bluetooth mode="notification" id="nano_ble" subscribeOnStart="false">
+            <output char="cddf1002-30f7-4671-8b43-5e40ba53514a" conversion="float32LittleEndian" offset="0">time</output>
+            <output char="cddf1002-30f7-4671-8b43-5e40ba53514a" conversion="float32LittleEndian" offset="4">accX</output>
+            <output char="cddf1002-30f7-4671-8b43-5e40ba53514a" conversion="float32LittleEndian" offset="8">accY</output>
+            <output char="cddf1002-30f7-4671-8b43-5e40ba53514a" conversion="float32LittleEndian" offset="12">accZ</output>
+            <output char="cddf1002-30f7-4671-8b43-5e40ba53514a" conversion="float32LittleEndian" offset="16">acc</output>
+        </bluetooth>
+    </input>
+	
+
+    <output>
+        <bluetooth id="nano_ble">
+	    <config char="cddf1003-30f7-4671-8b43-5e40ba53514a" conversion="float32LittleEndian">1.0</config>
+        </bluetooth>
+    </output>
+
+
+    <analysis sleep="0.2">
+        <add> <!-- allows for any axis (might not use) -->
+            <input clear="false">accX</input>
+            <input clear="false">accY</input>
+            <input clear="false">accZ</input>
+            <output>anyAcc</output>
+        </add>
+
+
+        <add>
+           <input type="value">2048</input>
+           <output>samples</output>
+        </add>
+
+
+        <count> <!-- returns the number of values in accX -->
+            <input clear="false">accX</input>
+            <output>count</output>
+        </count>
+
+        <subtract> <!-- removes a value of 1 from the count (= count-1) -->
+            <input clear="false">count</input>
+            <input type="value">1</input>
+            <output>count-1</output>
+        </subtract>
+
+        <first> <!-- returns the first entry of time (= t0) -->
+            <input clear="false">time</input>
+            <output>t0</output>
+        </first>
+        
+        <subrange> <!-- returns all time values in count-1 for a range of 1 to give t1 -->
+            <input as="from" clear="false">count-1</input>
+            <input as="length" type="value">1</input>
+            <input as="in" clear="false">time</input>
+            <output>t1</output>
+        </subrange>
+
+        <subtract> <!-- calculates the difference Dt between t0 and t1 -->
+            <input clear="false">t1</input>
+            <input clear="false">t0</input>
+            <output>Dt</output>
+        </subtract>
+
+        <divide> <!-- calculates dt (time between each sample) from Dt -->
+            <input clear="false">Dt</input>
+            <input clear="false">count-1</input>
+            <output>dt</output>
+        </divide>
+
+        <count> <!--  returns the number of values in accX -->
+            <input clear="false">accX</input>
+            <output>recording_length</output>
+        </count>
+
+        <subtract> <!-- recording length without the samples is the 'subrange_start' -->
+            <input>recording_length</input>
+            <input clear="false">samples</input>
+            <output>subrange_start</output>
+        </subtract>
+
+        <subrange> <!-- returns all values in accX from the designated start -->
+            <input clear="false" as="from">subrange_start</input>
+            <input as="in" clear="false">accX</input>
+            <output>accX_subrange</output>
+        </subrange>
+
+        <subrange> <!-- returns all values in accY from the designated start -->
+            <input clear="false" as="from">subrange_start</input>
+            <input as="in" clear="false">accY</input>
+            <output>accY_subrange</output>
+        </subrange>
+
+        <subrange> <!-- returns all values in accZ from the designated start -->
+            <input clear="false" as="from">subrange_start</input>
+            <input as="in" clear="false">accZ</input>
+            <output>accZ_subrange</output>
+        </subrange>
+
+        <subrange> <!-- returns all values in acc from the designated start -->
+            <input clear="false" as="from">subrange_start</input>
+            <input as="in" clear="false">acc</input>
+            <output>acc_subrange</output>
+        </subrange>
+
+        <subrange> <!-- returns all values in anyAcc from the designated start -->
+            <input clear="false" as="from">subrange_start</input>
+            <input as="in" clear="false">anyAcc</input>
+            <output>anyAcc_subrange</output>
+        </subrange>
+
+        <subrange> <!-- returns all time values from the designated start-->
+            <input clear="false" as="from">subrange_start</input>
+            <input as="in" clear="false">time</input>
+            <output>time_subrange</output>
+        </subrange>
+
+        <count> <!-- thr actual number of samples is the number of samples of accX within the designated range -->
+            <input clear="false">accX_subrange</input>
+            <output>actual_samples</output>
+        </count>
+
+        <add>
+            <input clear="false">actual_samples</input>
+            <input type="value">1</input>
+            <output>actual_samples+1</output>
+        </add>
+
+        <multiply> <!-- calculates the time period by multiplying the actual number of samples by the time difference between each sample dt -->
+            <input clear="false">actual_samples</input>
+            <input clear="false">dt</input>
+            <output>period</output>
+        </multiply>
+
+
+        <!-- to calculate no of samples -->
+        <divide> <!-- calculates 1/time period to give the lowest frequency f1) -->
+            <input type="value">1</input>
+            <input clear="false">period</input>
+            <output>f1</output>
+        </divide>
+
+        <divide> <!-- calculates maxf/lowest frequency to give N -->
+            <input clear="false">maxf</input>
+            <input clear="false">f1</input>
+            <output>N</output>
+        </divide>
+
+        <multiply>
+            <input type="value">2</input>
+            <input clear="false">N</input>
+            <output>2N</output>
+        </multiply>
+	
+        <!--
+        <add>
+            <input clear="false">2N</input>
+            <input type="value">1</input>
+            <output>samples</output>
+        </add>
+        -->
+	
+        <!--     -->
+
+        <fft> <!-- calculates the Fast Fourier Transform of the X component giving a real X component and an imaginary Y component-->
+            <input clear="false">accX_subrange</input>
+            <output as="re">fftXX</output>
+            <output as="im">fftXY</output>
+        </fft>
+
+        <fft> <!-- calculates the Fast Fourier Transform of the Y component giving a real X component and an imaginary Y component-->
+            <input clear="false">accY_subrange</input>
+            <output as="re">fftYX</output>
+            <output as="im">fftYY</output>
+        </fft>
+
+        <fft> <!-- calculates the Fast Fourier Transform of the Z component giving a real X component and an imaginary Y component-->
+            <input clear="false">accZ_subrange</input>
+            <output as="re">fftZX</output>
+            <output as="im">fftZY</output>
+        </fft>
+
+        <count> 
+            <input clear="false">fftXX</input>
+            <output>count</output>
+        </count>
+
+        <divide>
+            <input clear="false">actual_samples</input>
+            <input type="value">2</input>
+            <output>count/2</output>
+        </divide>
+
+        <divide> <!-- from the Sampling theorem (Nyquist) to give the maximum frequncy -->
+            <input type="value">0.5</input>
+            <input clear="false">dt</input>
+            <output>maxf</output>
+        </divide>
+
+        <divide>
+            <input type="value">1</input>
+            <input clear="false">dt</input>
+            <output>arate</output>
+        </divide>
+
+        <ramp> <!-- creates linear range of values to give the frequency between the start and end -->
+            <input as="start" type="value">0</input>
+            <input as="stop" clear="false">arate</input>
+            <input as="length" clear="false">actual_samples+1</input>
+            <output>frequency</output>
+        </ramp>
+
+        <subrange>
+            <input as="from" type="value">1</input>
+            <input as="to" clear="false">count/2</input>
+            <input as="in" clear="false">frequency</input>
+            <input as="in">fftXX</input>
+            <input as="in">fftXY</input>
+            <output>halfFrequency</output>
+            <output>halfFFTtempX</output>
+            <output>halfFFTtempY</output>
+        </subrange>
+        
+        <multiply> <!-- squares the halfFFTtempX for X component -->
+            <input clear="false">halfFFTtempX</input>
+            <input>halfFFTtempX</input>
+            <output>halfFFTtempX2</output>
+        </multiply>
+
+        <multiply> <!-- squares the halfFFTtempY for X component-->
+            <input clear="false">halfFFTtempY</input>
+            <input>halfFFTtempY</input>
+            <output>halfFFTtempY2</output>
+        </multiply>
+
+        <add>
+            <input>halfFFTtempX2</input>
+            <input>halfFFTtempY2</input>
+            <output>fftX</output>
+        </add>
+
+        <subrange>
+            <input as="from" type="value">1</input>
+            <input as="to" clear="false">count/2</input>
+            <input as="in" clear="false">frequency</input>
+            <input as="in">fftYX</input>
+            <input as="in">fftYY</input>
+            <output>halfFrequency</output>
+            <output>halfFFTtempX</output>
+            <output>halfFFTtempY</output>
+        </subrange>
+
+        <multiply> <!-- squares the halfFFTtempX for Y component -->
+            <input clear="false">halfFFTtempX</input>
+            <input>halfFFTtempX</input>
+            <output>halfFFTtempX2</output>
+        </multiply>
+
+        <multiply> <!-- squares the halfFFTtempY for Y component-->
+            <input clear="false">halfFFTtempY</input>
+            <input>halfFFTtempY</input>
+            <output>halfFFTtempY2</output>
+        </multiply>
+    
+        <add>
+            <input>halfFFTtempX2</input>
+            <input>halfFFTtempY2</input>
+            <output>fftY</output>
+        </add>
+
+        <subrange>
+            <input as="from" type="value">1</input>
+            <input as="to" clear="false">count/2</input>
+            <input as="in" clear="false">frequency</input>
+            <input as="in">fftZX</input>
+            <input as="in">fftZY</input>
+            <output>halfFrequency</output>
+            <output>halfFFTtempX</output>
+            <output>halfFFTtempY</output>
+        </subrange>
+        
+        <multiply> <!-- squares the halfFFTtempY for Z component-->
+            <input clear="false">halfFFTtempX</input>
+            <input>halfFFTtempX</input>
+            <output>halfFFTtempX2</output>
+        </multiply>
+
+        <multiply> <!-- squares the halfFFTtempY for Z component-->
+            <input clear="false">halfFFTtempY</input>
+            <input>halfFFTtempY</input>
+            <output>halfFFTtempY2</output>
+        </multiply>
+
+        <add>
+            <input>halfFFTtempX2</input>
+            <input>halfFFTtempY2</input>
+            <output>fftZ</output>
+        </add>
+            
+        <add> <!-- sums fftX, fftY, fftX inputs together to the single output buffer fft2 -->
+            <input>fftX</input>
+            <input>fftY</input>
+            <input>fftZ</input>
+            <output>fft2</output>
+          </add>
+          
+        <power> <!-- square roots -->
+            <input as="base">fft2</input>
+            <input as="exponent" type="value">0.5</input>
+            <output>fft</output>
+          </power>
+
+        <max> <!-- returns the X position of the maximum of Y w.r.t. the half frequency X -->
+          <input as="y" clear="false">fft</input>
+          <input as="x" clear="false">halfFrequency</input>
+          <output as="position" clear="false">f0</output>
+        </max>
+		
+		<max> <!-- returns the X position of the maximum of Y w.r.t. the half frequency X -->
+          <input as="y" clear="false">fft</input>
+          <output as="max" clear="false">maxfft</output>
+        </max>
+
+        <!-- RESONANCE PART BELOW -->
+        <!-- RESONANCE PART BELOW -->
+
+        <multiply>
+            <input clear="false">f1</input>
+            <input type="value">2</input>
+            <input type="value">3.14159265358979323846</input> <!-- pi -->
+            <output>omega</output>
+        </multiply>
+
+        <formula formula="(-1*[1_])/(([2_]^2)*(sin([2_]*[3_])))">
+            <input as="in" clear="false">acc_subrange</input>
+            <input as="in" clear="false">omega</input>
+            <input as="in" clear="false">time_subrange</input>
+            <output as="out">amplitude</output>
+        </formula>
+
+	<abs>
+	    <input>amplitude</input>
+            <output>abs_amplitude</output>
+	</abs>
+		
+        <!-- only append to history if there's enough data -->
+        <if less="true">
+            <input clear="false">count</input>
+            <input type="value">250</input>
+            <input as="false" clear="false">maxfft</input>
+            <output clear="false">amplitudehist</output>
+        </if>
+
+        <if less="true">
+            <input clear="false">count</input>
+            <input type="value">250</input>
+            <input as="false" clear="false">f0</input>
+            <output clear="false">frequencyhist</output>
+        </if>
+      </analysis>
+
+
+    <export>
+        <set name="Accelerations">
+            <data name="Time (s)">time_subrange</data>
+            <data name="Acceleration x (m/s²)">accX_subrange</data>
+            <data name="Acceleration y (m/s²)">accY_subrange</data>
+            <data name="Acceleration z (m/s²)">accZ_subrange</data>
+            <data name="Acceleration abs (m/s²)">acc_subrange</data>
+            <data name="Acceleration any(m/s²)">anyAcc_subrange</data>
+        </set>
+
+        <set name="FFT Graph">
+            <data name="Frequency (Hz)">halfFrequency</data>
+            <data name="Absolute Amplitude (a.u.)">fft</data>
+        </set>
+
+        <set name="Resonance Graph">
+            <data name="Frequency (Hz)">frequencyhist</data>
+            <data name="Rel. amplitude (a.u.)">amplitudehist</data>
+          </set>
+    </export>
+
+
+
+    <views>
+        <view label="Osc Exp">
+            <graph label="Acceleration" labelX="Time" unitX="s" labelY="Acceleration" unitY="m/s²" partialUpdate="true" style="lines">
+                <input axis="x">time_subrange</input>
+                <input axis="y" style="lines" linewidth="2">acc_subrange</input>
+            </graph>
+
+            <separator height="2"/>
+
+            <graph label="Fourier Transform" logX="false" logY="true" labelX="Frequency" unitX="Hz" labelY="FFT Amplitude" unitY="a.u.">
+                <input axis="x">halfFrequency</input>
+                <input axis="y" style="lines" lineWidth="2">fft</input>
+            </graph>
+            <separator height="1"/>
+            <value label="Peak Frequency" unit="Hz"><input>f0</input></value>
+            <value label="Number of Samples"><input>actual_samples</input></value>
+            <value label="Period" unit="s" precision="2"><input>period</input></value>
+            <value label="Nyquist frequency" unit="Hz" precision="0"><input>maxf</input></value>
+			<value label="Max FFT" unit="a.u." precision="3"><input>maxfft</input></value>
+
+            <separator height="2"/>
+            
+            <graph label="Resonance" labelX="Frequency" unitX="Hz" scaleMaxX="fixed" maxX="20" labelY="Amplitude" unitY="a.u." scaleMinY="fixed" minY="0">
+                <input axis="x">frequencyhist</input>
+                <input axis="y" style="dots">amplitudehist</input>
+            </graph>
+        </view>
+    </views>
+</phyphox>
