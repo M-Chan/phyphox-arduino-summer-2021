@@ -35,7 +35,8 @@ For one of the imu-statistics (magnetometer)...
 ![magnetometer_view1](https://user-images.githubusercontent.com/81781462/124754027-9ca66f00-df21-11eb-8608-c91ac305c41c.jpeg)
 
 Oscillator Experiment without Resonance Curve (Vibration generator turned off)...
-![osc_exp](https://user-images.githubusercontent.com/81781462/125269454-9e48ac00-e300-11eb-9424-44884556aabe.jpeg)
+![osc_exp](https://user-images.githubusercontent.com/81781462/125617892-4b406df2-ddb7-4f4b-9720-8567d20e7f32.jpeg)
+
 
 Resonance Attempt 1...
 ![Res1-2](https://user-images.githubusercontent.com/81781462/125280003-7cedbd00-e30c-11eb-8787-9bde457dbb36.jpeg)
@@ -52,3 +53,6 @@ Resonance Attempt 3...
 Resonance Attempt 4...
 **Note: Unlike the other attempts, this one requires changing the driving frequency to produce a resonance graph**
 ![Res4](https://user-images.githubusercontent.com/81781462/125617753-2249a2de-de47-4595-947a-25b39ce7c0a4.jpeg)
+
+
+## Manually Produced Resonance Curves
