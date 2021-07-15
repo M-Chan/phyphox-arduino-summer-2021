@@ -42,8 +42,8 @@ Resonance Attempt 1...
 ![Res1-2](https://user-images.githubusercontent.com/81781462/125280003-7cedbd00-e30c-11eb-8787-9bde457dbb36.jpeg)
 
 Resonance Attempt 2...
-![actual_res2](https://user-images.githubusercontent.com/81781462/125800771-b0273545-19e0-4596-bdd2-cb544476c7c4.jpeg)
 
+![actual_res2](https://user-images.githubusercontent.com/81781462/125800771-b0273545-19e0-4596-bdd2-cb544476c7c4.jpeg)
 
 Resonance Attempt 3...
 
