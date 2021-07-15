@@ -6,15 +6,21 @@
 
         This experiment simply displays raw data from the sensor in a histogram, which should form into a Gaussian distribution when the device is resting. Depending on the noise of the sensor you may want to change the binning size.
     </description>
+
     <icon format="base64">
         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
 	</icon>
+
+
     <data-containers>
+        <!-- buffers for the raw magnetometer data -->
         <container size="0">mag</container>
         <container size="0">magX</container>
         <container size="0">magY</container>
         <container size="0">magZ</container>
         <container size="0">t</container>
+
+        <!-- buffers for the histogram bars -->
         <container size="0">binStartMag</container>
         <container size="0">binStartX</container>
         <container size="0">binStartY</container>
@@ -23,19 +29,27 @@
         <container size="0">binCountX</container>
         <container size="0">binCountY</container>
         <container size="0">binCountZ</container>
+        <container size="1">binSize</container>
+
+        <!-- buffers for the averages -->
         <container size="1">averageMag</container>
         <container size="1">averageX</container>
         <container size="1">averageY</container>
         <container size="1">averageZ</container>
+
+        <!-- buffers for the standard deviations -->
         <container size="1">deviationMag</container>
         <container size="1">deviationX</container>
         <container size="1">deviationY</container>
         <container size="1">deviationZ</container>
+
+        <!-- buffers for the counts -->
         <container size="1">countMag</container>
         <container size="1">countX</container>
         <container size="1">countY</container>
         <container size="1">countZ</container>
-        <container size="1">binSize</container>
+
+        <!-- temporary buffers used for calculations -->
         <container size="0">temp1Mag</container>
         <container size="0">temp1X</container>
         <container size="0">temp1Y</container>
@@ -44,6 +58,8 @@
         <container size="0">temp2X</container>
         <container size="0">temp2Y</container>
         <container size="0">temp2Z</container>
+
+        <!-- buffers for min and max X values (used for Gaussian calculation) -->
         <container size="1">minXMag</container>
         <container size="1">minXX</container>
         <container size="1">minXY</container>
@@ -52,6 +68,8 @@
         <container size="1">maxXX</container>
         <container size="1">maxXY</container>
         <container size="1">maxXZ</container>
+    
+        <!-- buffers for the histogram curve -->
         <container size="500">gaussianXMag</container>
         <container size="500">gaussianXX</container>
         <container size="500">gaussianXY</container>
@@ -63,6 +81,7 @@
     </data-containers>
 
 
+    <!-- connecting the arduino's magnetometer to the Phyphox app -->
     <input>
         <bluetooth mode="notification" rate="1" subscribeOnStart="false" id="nano_ble">
             <output char="cddf1002-30f7-4671-8b43-5e40ba53514a" conversion="float32LittleEndian" offset="0">t</output>
@@ -182,7 +201,9 @@
         </view>
     </views>
 
+
     <analysis>
+        <!-- for the calculations of the histogram bars -->
         <binning>
             <input clear="false">mag</input>
             <input clear="false" as="dx">binSize</input>
@@ -211,6 +232,8 @@
             <output clear="true">binCountZ</output>
         </binning>  
 		
+
+        <!-- calculates the averages and standard deviations -->
         <average>
             <input clear="false">mag</input>
             <output as="average">averageMag</output>
@@ -235,6 +258,8 @@
             <output as="stddev">deviationZ</output>
         </average>
 		
+
+        <!-- counts the number of values in the raw data buffers -->
         <count>
             <input clear="false">mag</input>
             <output>countMag</output>
@@ -255,6 +280,8 @@
             <output>countZ</output>
         </count>
 		
+
+        <!-- calculates the minX for each component (including absolute) for the histogram -->
         <subrange>
             <input as="from" type="value">0</input>
             <input as="length" type="value">1</input>
@@ -283,6 +310,8 @@
             <output>minXZ</output>
         </subrange>
 		
+
+        <!-- appends all values to a single temporary output buffer used for calculations later on -->
         <append>
             <input clear="false">binStartMag</input>
             <output>temp1Mag</output>
@@ -303,6 +332,8 @@
             <output>temp1Z</output>
         </append>
 
+
+        <!-- calculates the minX for each component (including absolute) for the histogram adding the binStart values and the binSize -->
         <add>
             <input>temp1Mag</input>
             <input clear="false">binSize</input>
@@ -327,6 +358,8 @@
             <output>maxXZ</output>
         </add>
 		
+
+        <!-- creates a linear range of values from the first X to the last X data point using as many values as the size of the output buffer (500 in this case) -->
         <ramp>
             <input as="start" clear="false">minXMag</input>
             <input as="stop" clear="false">maxXMag</input>
@@ -351,6 +384,8 @@
             <output>gaussianXZ</output>
         </ramp>
 
+
+        <!-- subtracts the average Y value from the Gaussian X value-->
         <subtract>
             <input clear="false">gaussianXMag</input>
             <input clear="false">averageMag</input>
@@ -375,6 +410,8 @@
             <output>temp1Z</output>
         </subtract>
 
+
+        <!-- squares the temporary buffers -->
         <multiply>
             <input clear="false">temp1Mag</input>
             <input>temp1Mag</input>
@@ -399,6 +436,8 @@
             <output>temp2Z</output>
         </multiply>
 
+
+        <!-- scaling down -->
         <divide>
             <input>temp2Mag</input>
             <input type="value">-2</input>
@@ -431,6 +470,8 @@
             <output>temp1Z</output>
         </divide>
 
+
+        <!-- scaling up (e^temp1...)-->
         <power>
             <input as="base" type="value">2.7182818284</input> <!-- e -->
             <input as="exponent">temp1Mag</input>
@@ -455,6 +496,8 @@
             <output>temp2Z</output>
         </power>
 		
+
+        <!-- scaling down -->
         <divide>
             <input>temp2Mag</input>
             <input type="value">2.506628275</input> <!-- sqrt(2pi) -->
@@ -483,6 +526,8 @@
             <output>temp1Z</output>
         </divide>
 
+
+        <!-- calculates the Gaussian Y value for each component -->
         <multiply>
             <input>temp1Mag</input>
             <input clear="false">binSize</input>
@@ -513,6 +558,7 @@
     </analysis>
 
 
+    <!-- for exporting to Excel -->
     <export>
         <set name="Data">
             <data name="t (s)">t</data>
