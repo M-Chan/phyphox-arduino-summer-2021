@@ -20,8 +20,8 @@
 
         <!-- buffers for the peak frequency and stats -->
         <container size="0">f0</container>
-		<container size="0">f0_avg</container>
-		<container size="0">f0_error</container>
+	<container size="0">f0_avg</container>
+	<container size="0">f0_error</container>
 
         <!-- buffers for other frequencies -->
         <container size="2048">halfFrequency</container>
@@ -50,9 +50,9 @@
 
         <!-- FFT, calculations and stats buffers -->
         <container size="2048">fft</container>
-		<container size="2048">maxfft</container>
-		<container size="2048">maxfft_avg</container>
-		<container size="2048">maxfft_error</container>
+	<container size="2048">maxfft</container>
+	<container size="2048">maxfft_avg</container>
+	<container size="2048">maxfft_error</container>
         <container size="2048">fftX</container>
         <container size="2048">fftY</container>
         <container size="2048">fftZ</container>
@@ -110,7 +110,7 @@
             <value label="Nyquist frequency" unit="Hz" precision="0"><input>maxf</input></value>
 			<value label="Max FFT" unit="a.u." precision="2"><input>maxfft</input></value>
 			
-			<separator height="2"/>
+	    <separator height="2"/>
 
 
             <graph label="Frequency" logX="false" logY="true" labelX="Time" unitX="s" labelY="Peak Frequency" unitY="Hz">
@@ -118,27 +118,27 @@
                 <input axis="y" style="lines" lineWidth="2">f0</input>
             </graph>
 			
-			<separator height="3"/>
+	    <separator height="3"/>
 						
 			
-			<info label="Statistics"/>
-			<separator height="1"/>
-			<value label="Average Peak Frequency" unit="Hz" precision="3"><input>f0_avg</input></value>
+	    <info label="Statistics"/>
+	    <separator height="1"/>
+	    <value label="Average Peak Frequency" unit="Hz" precision="3"><input>f0_avg</input></value>
             <value label="Peak Frequency Error" unit="Hz" precision="3"><input>f0_error</input></value>
-			<value label="Average Max FFT" unit="a.u." precision="3"><input>maxfft_avg</input></value>
+	    <value label="Average Max FFT" unit="a.u." precision="3"><input>maxfft_avg</input></value>
             <value label="Max FFT Error" unit="a.u." precision="3"><input>maxfft_error</input></value>
         </view>
 		
 
-		<!-- creates a new view with just the new statistical data -->
-		<view label="Stats">
+	<!-- creates a new view with just the new statistical data -->
+	<view label="Stats">
             <value label="Peak Frequency" unit="Hz" precision="3"><input>f0</input></value>
             <value label="Number of Samples"><input>actual_samples</input></value>
             <value label="Period" unit="s" precision="2"><input>period</input></value>
             <value label="Nyquist frequency" unit="Hz" precision="0"><input>maxf</input></value>
-			<value label="Max FFT" unit="a.u." precision="2"><input>maxfft</input></value>
+	    <value label="Max FFT" unit="a.u." precision="2"><input>maxfft</input></value>
 			
-			<separator height="2"/>
+	    <separator height="2"/>
 
 
             <!-- creates a graph of peak frequency with respect to time so that we can see the initial fluctuation before the value settles -->
@@ -147,15 +147,15 @@
                 <input axis="y" style="lines" lineWidth="2">f0</input>
             </graph>
 			
-			<separator height="3"/>
+	   <separator height="3"/>
 						
 			
             <!-- outputs the statistical data for the peak frequency and its corresponding FFT value -->
-			<info label="Statistics"/>
-			<separator height="1"/>
-			<value label="Average Peak Frequency" unit="Hz" precision="3"><input>f0_avg</input></value>
+	    <info label="Statistics"/>
+	    <separator height="1"/>
+	    <value label="Average Peak Frequency" unit="Hz" precision="3"><input>f0_avg</input></value>
             <value label="Peak Frequency Error" unit="Hz" precision="3"><input>f0_error</input></value>
-			<value label="Average Max FFT" unit="a.u." precision="3"><input>maxfft_avg</input></value>
+	    <value label="Average Max FFT" unit="a.u." precision="3"><input>maxfft_avg</input></value>
             <value label="Max FFT Error" unit="a.u." precision="3"><input>maxfft_error</input></value>
         </view>
     </views>
@@ -171,7 +171,7 @@
         </add>
 
         <!-- sets the sample size to 1024 samples -->
-		<add>
+	<add>
             <input type="value">1024</input>
             <output>samples</output>
         </add>
@@ -446,9 +446,9 @@
         </power>
 		
         <!-- calculates the maximum fft value -->
-		<max> 
-			<input as="y" clear="false">fft</input>
-			<output as="max">maxfft</output>
+	<max> 
+	    <input as="y" clear="false">fft</input>
+	    <output as="max">maxfft</output>
         </max>
 		
         <!-- returns the x-position of the maxfft value to give the peak frequency -->
@@ -458,19 +458,19 @@
           <output as="position" clear="false">f0</output>
         </max>
 		
-		<!-- calculates the average and the standard deviation of the maxfft -->
-		<average>
-			<input clear="false">maxfft</input>
-			<output as="average" clear="false">maxfft_avg</output> <!-- calculates the average max FFT value -->
-			<output as="stddev">maxfft_error</output> <!-- calculates the standard deviation of the max FFT value -->
-		</average>
+	<!-- calculates the average and the standard deviation of the maxfft -->
+	<average>
+	    <input clear="false">maxfft</input>
+	    <output as="average" clear="false">maxfft_avg</output> <!-- calculates the average max FFT value -->
+	    <output as="stddev">maxfft_error</output> <!-- calculates the standard deviation of the max FFT value -->
+	</average>
 		
         <!-- calculates the average and the standard deviation of the peak frequency -->
-		<average>
-			<input clear="false">f0</input>
-			<output as="average" clear="false">f0_avg</output> <!-- calculates the average peak frequency -->
-			<output as="stddev">f0_error</output> <!-- calculates the standard deviation of the peak frequency -->
-		</average>
+	<average>
+	    <input clear="false">f0</input>
+	    <output as="average" clear="false">f0_avg</output> <!-- calculates the average peak frequency -->
+	    <output as="stddev">f0_error</output> <!-- calculates the standard deviation of the peak frequency -->
+	</average>
       </analysis>
 
 
@@ -487,14 +487,14 @@
             <data name="Frequency (Hz)">halfFrequency</data>
             <data name="FFT (a.u.)">fft</data>
             <data name="Peak Frequency (Hz)">f0</data>
-			<data name="Max FFT (a.u.)">maxfft</data>
+	    <data name="Max FFT (a.u.)">maxfft</data>
         </set>
 		
-		<set name="Stats">
+	<set name="Stats">
             <data name="Avg Peak Frequency (Hz)">f0_avg</data>
             <data name="Avg Peak Frequency Error (Hz)">f0_error</data>
-			<data name="Max FFT (a.u.)">maxfft_avg</data>
-			<data name="Max FFT Error (a.u.)">maxfft_error</data>
+	    <data name="Max FFT (a.u.)">maxfft_avg</data>
+	    <data name="Max FFT Error (a.u.)">maxfft_error</data>
         </set>
     </export>
 </phyphox>
