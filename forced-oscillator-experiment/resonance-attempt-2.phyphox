@@ -5,12 +5,12 @@
     <description>
             Displays the frequency spectrum of data from the accelerometer.
             This experiment records data from the accelerometer and calculates its frequency spectrum through a Fast Fourier Transformation (FFT). The maximum detectable frequency depends on the maximum acquisition rate of your sensor.
-            The Resonance graph is also produced.
+            A Resonance graph is also attempted.
     </description>
 
 
-
     <data-containers>
+        <!-- buffers for the raw accelerometer data -->
         <container size="0">time</container>
         <container size="0">accX</container>
         <container size="0">accY</container>
@@ -18,13 +18,14 @@
         <container size="0">acc</container>
         <container size="500">anyAcc</container>
 
+        <!-- buffers for frequencies -->
         <container size="2048">halfFrequency</container>
-        <container size="2048">fft</container>
         <container size="0">f0</container>
-        <container size="1">actual_samples</container>
         <container size="1">period</container>
         <container size="1">maxf</container>
+        <container size="4096">frequency</container>
 
+        <!-- buffers for sampling and counts -->
         <container size="4096">time_subrange</container>
         <container size="1">subrange_start</container>
         <container size="4096">accX_subrange</container>
@@ -37,52 +38,48 @@
         <container size="1">actual_samples</container>
         <container size="1">actual_samples+1</container>
         <container size="1">arate</container>
-        <container size="4096">frequency</container>
         <container size="1">count-1</container>
         <container size="1">count</container>
-
-
-        <container size="1">f1</container>
-        <container size="1">N</container>
-        <container size="1">2N</container>
-
-
         <container size="1">count/2</container>
         <container size="1">dt</container>
         <container size="1">Dt</container>
         <container size="1">t0</container>
         <container size="1">t1</container>
 
+        <!-- extra buffers for sample size calculation from experimental techniques -->
+        <container size="1">f1</container>
+        <container size="1">N</container>
+        <container size="1">2N</container>
+
+        <!-- FFT and calculations buffers -->
+        <container size="2048">fft</container>
         <container size="2048">fftX</container>
         <container size="2048">fftY</container>
         <container size="2048">fftZ</container>
         <container size="2048">fft2</container>
-
         <container size="4096">fftXX</container>
         <container size="4096">fftYX</container>
         <container size="4096">fftZX</container>
         <container size="4096">fftXY</container>
         <container size="4096">fftYY</container>
         <container size="4096">fftZY</container>
-
         <container size="2048">halfFFTtempX</container>
         <container size="2048">halfFFTtempY</container>
         <container size="2048">halfFFTtempX2</container>
         <container size="2048">halfFFTtempY2</container>
 
-
+        <!-- buffers for appending to history and plotting the actual resonance curve -->
         <container size="0">frequencyhist</container>
         <container size="0">amplitudehist</container>
 
+        <!-- buffers for calulating the amplitude from the acceleration via standard deviation and scaling -->
         <container size="1">amplitude</container>
         <container size="1">amplitudeSkewed</container>
         <container size="1">avg</container>
-
-        
     </data-containers>
 
 
-
+    <!-- connecting the arduino's accelerometer to the Phyphox app -->
     <input>
         <bluetooth mode="notification" id="nano_ble" subscribeOnStart="false">
             <output char="cddf1002-30f7-4671-8b43-5e40ba53514a" conversion="float32LittleEndian" offset="0">time</output>
@@ -102,114 +99,131 @@
 
 
     <analysis sleep="0.2">
-        <add> <!-- allows for any axis (might not use) -->
+        <!-- allows for any axis (might not use) -->
+        <add> 
             <input clear="false">accX</input>
             <input clear="false">accY</input>
             <input clear="false">accZ</input>
             <output>anyAcc</output>
         </add>
 
-
+        <!-- sets the sample size to 800 samples -->
         <add>
            <input type="value">800</input>
            <output>samples</output>
         </add>
 
-
-        <count> <!-- returns the number of values in accX -->
+        <!-- returns the number of values in accX -->
+        <count>
             <input clear="false">accX</input>
             <output>count</output>
         </count>
 
-        <subtract> <!-- removes a value of 1 from the count (= count-1) -->
+        <!-- removes a value of 1 from the count (= count-1) -->
+        <subtract> 
             <input clear="false">count</input>
             <input type="value">1</input>
             <output>count-1</output>
         </subtract>
 
-        <first> <!-- returns the first entry of time (= t0) -->
+        <!-- returns the first entry of time (= t0) -->
+        <first> 
             <input clear="false">time</input>
             <output>t0</output>
         </first>
         
-        <subrange> <!-- returns all time values in count-1 for a range of 1 to give t1 -->
+        <!-- returns all time values in count-1 for a range of 1 to give t1 -->
+        <subrange> 
             <input as="from" clear="false">count-1</input>
             <input as="length" type="value">1</input>
             <input as="in" clear="false">time</input>
             <output>t1</output>
         </subrange>
 
-        <subtract> <!-- calculates the difference Dt between t0 and t1 -->
+        <!-- calculates the difference Dt between t0 and t1 -->
+        <subtract> 
             <input clear="false">t1</input>
             <input clear="false">t0</input>
             <output>Dt</output>
-          </subtract>
+        </subtract>
 
-        <divide> <!-- calculates dt (time between each sample) from Dt -->
+        <!-- calculates dt (time between each sample) from Dt -->
+        <divide> 
             <input clear="false">Dt</input>
             <input clear="false">count-1</input>
             <output>dt</output>
         </divide>
 
-        <count> <!--  returns the number of values in accX -->
+        <!--  returns the number of values in accX -->
+        <count> 
             <input clear="false">accX</input>
             <output>recording_length</output>
         </count>
 
-        <subtract> <!-- recording length without the samples is the 'subrange_start' -->
+        <!-- calculates the start based on the recording length and sample size -->
+        <subtract>
             <input>recording_length</input>
             <input clear="false">samples</input>
             <output>subrange_start</output>
         </subtract>
 
-        <subrange> <!-- returns all values in accX from the designated start -->
+        <!-- returns all values in accX from the designated start -->
+        <subrange> 
             <input clear="false" as="from">subrange_start</input>
             <input as="in" clear="false">accX</input>
             <output>accX_subrange</output>
         </subrange>
 
-        <subrange> <!-- returns all values in accY from the designated start -->
+        <!-- returns all values in accY from the designated start -->
+        <subrange> 
             <input clear="false" as="from">subrange_start</input>
             <input as="in" clear="false">accY</input>
             <output>accY_subrange</output>
         </subrange>
 
-        <subrange> <!-- returns all values in accZ from the designated start -->
+        <!-- returns all values in accZ from the designated start -->
+        <subrange> 
             <input clear="false" as="from">subrange_start</input>
             <input as="in" clear="false">accZ</input>
             <output>accZ_subrange</output>
         </subrange>
 
-        <subrange> <!-- returns all values in acc from the designated start -->
+        <!-- returns all values in acc from the designated start -->
+        <subrange> 
             <input clear="false" as="from">subrange_start</input>
             <input as="in" clear="false">acc</input>
             <output>acc_subrange</output>
         </subrange>
 
-        <subrange> <!-- returns all values in anyAcc from the designated start -->
+        <!-- returns all values in anyAcc from the designated start -->
+        <subrange> 
             <input clear="false" as="from">subrange_start</input>
             <input as="in" clear="false">anyAcc</input>
             <output>anyAcc_subrange</output>
         </subrange>
 
-        <subrange> <!-- returns all time values from the designated start-->
+        <!-- returns all time values from the designated start-->
+        <subrange> 
             <input clear="false" as="from">subrange_start</input>
             <input as="in" clear="false">time</input>
             <output>time_subrange</output>
         </subrange>
 
-        <count> <!-- thr actual number of samples is the number of samples of accX within the designated range -->
+        <!-- the actual number of samples is the number of samples of accX within the designated range -->
+        <count> 
             <input clear="false">accX_subrange</input>
             <output>actual_samples</output>
         </count>
 
+        <!-- adds 1 to the actual number of samples -->
         <add>
             <input clear="false">actual_samples</input>
             <input type="value">1</input>
             <output>actual_samples+1</output>
         </add>
 
-        <multiply> <!-- calculates the time period by multiplying the actual number of samples by the time difference between each sample dt -->
+        <!-- calculates the time period by multiplying the actual number of samples by the time difference between each sample dt -->
+        <multiply> 
             <input clear="false">actual_samples</input>
             <input clear="false">dt</input>
             <output>period</output>
@@ -241,57 +255,66 @@
             <output>samples</output>
         </add>
         -->
-        <!--     -->
+        <!--  the above wasn't used (I instead permanently set the sample size at the start   -->
 
 
-        <fft> <!-- calculates the Fast Fourier Transform of the X component giving a real X component and an imaginary Y component-->
+        <!-- calculates the Fast Fourier Transform of the X component giving a real X component and an imaginary Y component-->
+        <fft> 
             <input clear="false">accX_subrange</input>
             <output as="re">fftXX</output>
             <output as="im">fftXY</output>
         </fft>
 
-        <fft> <!-- calculates the Fast Fourier Transform of the Y component giving a real X component and an imaginary Y component-->
+        <!-- calculates the Fast Fourier Transform of the Y component giving a real X component and an imaginary Y component-->
+        <fft> 
             <input clear="false">accY_subrange</input>
             <output as="re">fftYX</output>
             <output as="im">fftYY</output>
         </fft>
 
-        <fft> <!-- calculates the Fast Fourier Transform of the Z component giving a real X component and an imaginary Y component-->
+        <!-- calculates the Fast Fourier Transform of the Z component giving a real X component and an imaginary Y component-->
+        <fft> 
             <input clear="false">accZ_subrange</input>
             <output as="re">fftZX</output>
             <output as="im">fftZY</output>
         </fft>
 
+        <!-- recalculates the count from the number of values within the fftXX buffer -->
         <count> 
             <input clear="false">fftXX</input>
             <output>count</output>
         </count>
 
+        <!-- calculates half the count from half the actual number of samples -->
         <divide>
             <input clear="false">actual_samples</input>
             <input type="value">2</input>
             <output>count/2</output>
         </divide>
 
-        <divide> <!-- from the Sampling theorem (Nyquist) to give the maximum frequncy -->
+        <!-- from the Sampling theorem (Nyquist) to give the maximum frequncy -->
+        <divide> 
             <input type="value">0.5</input>
             <input clear="false">dt</input>
             <output>maxf</output>
         </divide>
 
+        <!-- calculates the arate from 1/dt -->
         <divide>
             <input type="value">1</input>
             <input clear="false">dt</input>
             <output>arate</output>
         </divide>
 
-        <ramp> <!-- creates linear range of values to give the frequency between the start and end -->
+        <!-- creates linear range of values to give the frequency between the start and end -->
+        <ramp> 
             <input as="start" type="value">0</input>
             <input as="stop" clear="false">arate</input>
             <input as="length" clear="false">actual_samples+1</input>
             <output>frequency</output>
         </ramp>
 
+        <!-- returns all values from 1 to count/2 to give half the normal output values (for x-component) -->
         <subrange>
             <input as="from" type="value">1</input>
             <input as="to" clear="false">count/2</input>
@@ -303,24 +326,28 @@
             <output>halfFFTtempY</output>
         </subrange>
         
-        <multiply> <!-- squares the halfFFTtempX for X component -->
+        <!-- squares the halfFFTtempX for X component -->
+        <multiply> 
             <input clear="false">halfFFTtempX</input>
             <input>halfFFTtempX</input>
             <output>halfFFTtempX2</output>
         </multiply>
 
-        <multiply> <!-- squares the halfFFTtempY for X component-->
+        <!-- squares the halfFFTtempY for X component-->
+        <multiply> 
             <input clear="false">halfFFTtempY</input>
             <input>halfFFTtempY</input>
             <output>halfFFTtempY2</output>
         </multiply>
 
+        <!-- adds the X and Y halves together to give ffX -->
         <add>
             <input>halfFFTtempX2</input>
             <input>halfFFTtempY2</input>
             <output>fftX</output>
         </add>
 
+        <!-- returns all values from 1 to count/2 to give half the normal output values (for y-component) -->
         <subrange>
             <input as="from" type="value">1</input>
             <input as="to" clear="false">count/2</input>
@@ -332,24 +359,28 @@
             <output>halfFFTtempY</output>
         </subrange>
 
-        <multiply> <!-- squares the halfFFTtempX for Y component -->
+        <!-- squares the halfFFTtempX for Y component -->
+        <multiply> 
             <input clear="false">halfFFTtempX</input>
             <input>halfFFTtempX</input>
             <output>halfFFTtempX2</output>
         </multiply>
 
-        <multiply> <!-- squares the halfFFTtempY for Y component-->
+        <!-- squares the halfFFTtempY for Y component-->
+        <multiply> 
             <input clear="false">halfFFTtempY</input>
             <input>halfFFTtempY</input>
             <output>halfFFTtempY2</output>
         </multiply>
     
+        <!-- adds the X and Y halves together to give fftY -->
         <add>
             <input>halfFFTtempX2</input>
             <input>halfFFTtempY2</input>
             <output>fftY</output>
         </add>
 
+        <!-- returns all values from 1 to count/2 to give half the normal output values (for z-component) -->
         <subrange>
             <input as="from" type="value">1</input>
             <input as="to" clear="false">count/2</input>
@@ -361,38 +392,44 @@
             <output>halfFFTtempY</output>
         </subrange>
         
-        <multiply> <!-- squares the halfFFTtempY for Z component-->
+        <!-- squares the halfFFTtempX for Z component-->
+        <multiply> 
             <input clear="false">halfFFTtempX</input>
             <input>halfFFTtempX</input>
             <output>halfFFTtempX2</output>
         </multiply>
 
-        <multiply> <!-- squares the halfFFTtempY for Z component-->
+        <!-- squares the halfFFTtempY for Z component-->
+        <multiply> 
             <input clear="false">halfFFTtempY</input>
             <input>halfFFTtempY</input>
             <output>halfFFTtempY2</output>
         </multiply>
 
+        <!-- adds the X and Y halves together to give fftZ -->
         <add>
             <input>halfFFTtempX2</input>
             <input>halfFFTtempY2</input>
             <output>fftZ</output>
         </add>
-            
-        <add> <!-- sums fftX, fftY, fftX inputs together to the single output buffer fft2 -->
+        
+        <!-- sums fftX, fftY, fftX inputs together to the single output buffer fft2 -->
+        <add> 
             <input>fftX</input>
             <input>fftY</input>
             <input>fftZ</input>
             <output>fft2</output>
-          </add>
-          
-        <power> <!-- square roots -->
+        </add>
+        
+        <!-- square roots -->
+        <power> 
             <input as="base">fft2</input>
             <input as="exponent" type="value">0.5</input>
             <output>fft</output>
           </power>
 
-        <max> <!-- returns the X position of the maximum of Y w.r.t. the half frequency X -->
+        <!-- returns the x-position of the maxfft value to give the peak frequency -->
+        <max> 
           <input as="y" clear="false">fft</input>
           <input as="x" clear="false">halfFrequency</input>
           <output as="position" clear="false">f0</output>
@@ -401,13 +438,15 @@
         <!-- RESONANCE PART BELOW -->
         <!-- RESONANCE PART BELOW -->
 
+        <!-- calculates the average and standard deviation of the acceleration -->
         <average>
             <input clear="false">acc</input>
             <output as="average" clear="false">avg</output>
             <output as="stddev">amplitudeSkewed</output>
         </average>
 
-        <divide>
+        <!-- scales the amplitude back down according to its frequency f1 (works for small harmonic oscillations) -->
+        <divide> 
             <input clear="false">amplitudeSkewed</input>
             <input clear="false">f1</input>
             <input clear="false">f1</input>
@@ -431,6 +470,7 @@
       </analysis>
 
 
+    <!-- for exporting to Excel -->
     <export>
         <set name="Accelerations">
             <data name="Time (s)">time_subrange</data>
@@ -444,11 +484,12 @@
         <set name="FFT Graph">
             <data name="Frequency (Hz)">halfFrequency</data>
             <data name="Absolute Amplitude (a.u.)">fft</data>
+            <data name="Peak Frequency (Hz)">f0</data>
         </set>
 
         <set name="Resonance Graph">
-            <data name="Frequency (Hz)">frequencyhist</data>
-            <data name="Rel. amplitude (a.u.)">amplitudehist</data>
+            <data name="Frequency (Hz)">halfFrequency</data>
+            <data name="Amplitude (a.u.)">amplitudehist</data>
           </set>
     </export>
 
@@ -477,7 +518,7 @@
             
             <graph label="Resonance" labelX="Frequency" unitX="Hz" labelY="Amplitude" unitY="a.u.">
                 <input axis="x">halfFrequency</input>
-                <input axis="y" style="dots">anyAcc</input>
+                <input axis="y" style="dots">amplitudehist</input>
             </graph>
         </view>
     </views>
