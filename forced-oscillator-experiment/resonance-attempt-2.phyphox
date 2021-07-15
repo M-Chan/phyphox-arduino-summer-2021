@@ -516,6 +516,7 @@
 
             <separator height="2"/>
             
+            <!-- the attempted resonance graph is produced below -->
             <graph label="Resonance" labelX="Frequency" unitX="Hz" labelY="Amplitude" unitY="a.u.">
                 <input axis="x">halfFrequency</input>
                 <input axis="y" style="dots">amplitudehist</input>
