@@ -309,7 +309,7 @@
             <output>count/2</output>
         </divide>
 
-        <!-- calculates the maxf -->
+        <!-- from the Sampling theorem (Nyquist) to give the maximum frequncy -->
         <divide>
             <input type="value">0.5</input>
             <input clear="false">dt</input>
