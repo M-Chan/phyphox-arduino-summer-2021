@@ -74,7 +74,7 @@
 
         <!-- buffers for calculating the amplitude from the absolute acceleration data-->
         <container size="1">amplitude</container>
-		<container size="1">abs_amplitude</container>
+	<container size="1">abs_amplitude</container>
         <container size="1">omega</container>
     </data-containers>
 
@@ -455,10 +455,10 @@
         </formula>
 
         <!-- calculates the absolute amplitude -->
-		<abs>
-			<input>amplitude</input>
+	<abs>
+	    <input>amplitude</input>
             <output>abs_amplitude</output>
-		</abs>
+	</abs>
 		
         <!-- only append to history if there's enough data -->
         <if less="true">
