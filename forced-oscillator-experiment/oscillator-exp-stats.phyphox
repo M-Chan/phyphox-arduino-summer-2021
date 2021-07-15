@@ -170,9 +170,9 @@
             <output>anyAcc</output>
         </add>
 
-        <!-- sets the sample size to 800 samples -->
+        <!-- sets the sample size to 1024 samples -->
 		<add>
-            <input type="value">800</input>
+            <input type="value">1024</input>
             <output>samples</output>
         </add>
 		
@@ -487,14 +487,14 @@
             <data name="Frequency (Hz)">halfFrequency</data>
             <data name="FFT (a.u.)">fft</data>
             <data name="Peak Frequency (Hz)">f0</data>
-	    <data name="Max FFT (a.u.)">maxfft</data>
+			<data name="Max FFT (a.u.)">maxfft</data>
         </set>
 		
-	<set name="Stats">
+		<set name="Stats">
             <data name="Avg Peak Frequency (Hz)">f0_avg</data>
             <data name="Avg Peak Frequency Error (Hz)">f0_error</data>
-	    <data name="Max FFT (a.u.)">maxfft_avg</data>
-	    <data name="Max FFT Error (a.u.)">maxfft_error</data>
+			<data name="Max FFT (a.u.)">maxfft_avg</data>
+			<data name="Max FFT Error (a.u.)">maxfft_error</data>
         </set>
     </export>
 </phyphox>
