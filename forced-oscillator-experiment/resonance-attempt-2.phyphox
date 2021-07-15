@@ -426,7 +426,7 @@
             <input as="base">fft2</input>
             <input as="exponent" type="value">0.5</input>
             <output>fft</output>
-          </power>
+        </power>
 
         <!-- returns the x-position of the maxfft value to give the peak frequency -->
         <max> 
