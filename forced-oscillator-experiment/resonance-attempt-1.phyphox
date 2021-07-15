@@ -392,7 +392,7 @@
             <output>halfFFTtempY</output>
         </subrange>
         
-        <!-- squares the halfFFTtempY for Z component-->
+        <!-- squares the halfFFTtempX for Z component-->
         <multiply> 
             <input clear="false">halfFFTtempX</input>
             <input>halfFFTtempX</input>
