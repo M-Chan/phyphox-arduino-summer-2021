@@ -415,7 +415,7 @@
 
         <set name="FFT Graph">
             <data name="Frequency (Hz)">halfFrequency</data>
-            <data name="Absolute Amplitude (a.u.)">fft</data>
+            <data name="FFT (a.u.)">fft</data>
         </set>
     </export>
 </phyphox>
