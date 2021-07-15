@@ -10,6 +10,7 @@
 
 
     <data-containers>
+        <!-- buffers for the raw accelerometer data -->
         <container size="0">time</container>
         <container size="0">accX</container>
         <container size="0">accY</container>
@@ -17,18 +18,18 @@
         <container size="0">acc</container>
         <container size="500">anyAcc</container>
 
-        <container size="2048">halfFrequency</container>
-        <container size="2048">fft</container>
-		<container size="2048">maxfft</container>
-		<container size="2048">maxfft_avg</container>
-		<container size="2048">maxfft_error</container>
+        <!-- buffers for the peak frequency and stats -->
         <container size="0">f0</container>
 		<container size="0">f0_avg</container>
 		<container size="0">f0_error</container>
-        <container size="1">actual_samples</container>
+
+        <!-- buffers for other frequencies -->
+        <container size="2048">halfFrequency</container>
         <container size="1">period</container>
         <container size="1">maxf</container>
+        <container size="4096">frequency</container>
 
+        <!-- buffers for sampling and counts -->
         <container size="4096">time_subrange</container>
         <container size="1">subrange_start</container>
         <container size="4096">accX_subrange</container>
@@ -39,29 +40,29 @@
         <container size="1">actual_samples</container>
         <container size="1">actual_samples+1</container>
         <container size="1">arate</container>
-        <container size="4096">frequency</container>
         <container size="1">count-1</container>
         <container size="1">count</container>
-
         <container size="1">count/2</container>
         <container size="1">dt</container>
         <container size="1">Dt</container>
         <container size="1">t0</container>
         <container size="1">t1</container>
 
-
+        <!-- FFT, calculations and stats buffers -->
+        <container size="2048">fft</container>
+		<container size="2048">maxfft</container>
+		<container size="2048">maxfft_avg</container>
+		<container size="2048">maxfft_error</container>
         <container size="2048">fftX</container>
         <container size="2048">fftY</container>
         <container size="2048">fftZ</container>
         <container size="2048">fft2</container>
-
         <container size="4096">fftXX</container>
         <container size="4096">fftYX</container>
         <container size="4096">fftZX</container>
         <container size="4096">fftXY</container>
         <container size="4096">fftYY</container>
         <container size="4096">fftZY</container>
-
         <container size="2048">halfFFTtempX</container>
         <container size="2048">halfFFTtempY</container>
         <container size="2048">halfFFTtempX2</container>
@@ -69,6 +70,7 @@
     </data-containers>
 
 
+    <!-- connecting the arduino's accelerometer to the Phyphox app -->
     <input>
         <bluetooth mode="notification" id="nano_ble" subscribeOnStart="false">
             <output char="cddf1002-30f7-4671-8b43-5e40ba53514a" conversion="float32LittleEndian" offset="0">time</output>
@@ -87,6 +89,7 @@
 
 
     <views>
+        <!-- creates a view will all the outputted data presented -->
         <view label="All">
             <graph label="Acceleration" labelX="Time" unitX="s" labelY="Acceleration" unitY="m/s²" partialUpdate="true" style="lines">
                 <input axis="x">time_subrange</input>
@@ -126,9 +129,9 @@
             <value label="Max FFT Error" unit="a.u." precision="3"><input>maxfft_error</input></value>
         </view>
 		
-		
+
+		<!-- creates a new view with just the new statistical data -->
 		<view label="Stats">
-  
             <value label="Peak Frequency" unit="Hz" precision="3"><input>f0</input></value>
             <value label="Number of Samples"><input>actual_samples</input></value>
             <value label="Period" unit="s" precision="2"><input>period</input></value>
@@ -138,7 +141,8 @@
 			<separator height="2"/>
 
 
-            <graph label="Frequency" logX="false" logY="true" labelX="Time" unitX="s" labelY="Peak Frequency" unitY="Hz">
+            <!-- creates a graph of peak frequency with respect to time so that we can see the initial fluctuation before the value settles -->
+            <graph label="Peak Frequency" logX="false" logY="true" labelX="Time" unitX="s" labelY="Peak Frequency" unitY="Hz">
                 <input axis="x">time_subrange</input>
                 <input axis="y" style="lines" lineWidth="2">f0</input>
             </graph>
@@ -146,6 +150,7 @@
 			<separator height="3"/>
 						
 			
+            <!-- outputs the statistical data for the peak frequency and its corresponding FFT value -->
 			<info label="Statistics"/>
 			<separator height="1"/>
 			<value label="Average Peak Frequency" unit="Hz" precision="3"><input>f0_avg</input></value>
@@ -157,36 +162,40 @@
 
 
     <analysis sleep="0.1">
+        <!-- Since we want to keep a sign, but also want to allow using any axis, we simply look at the sum of all axes. This gives bad results if the phone is mounted at an angle, but usually the user will perform the experiment along a single axis -->
         <add>
             <input clear="false">accX</input>
             <input clear="false">accY</input>
             <input clear="false">accZ</input>
             <output>anyAcc</output>
-            <!-- Since we want to keep a sign, but also want to allow using any axis, we simply look at the sum of all axes. This gives bad results if the phone is mounted at an angle, but usually the user will perform the experiment along a single axis -->
         </add>
 
+        <!-- sets the sample size to 800 samples -->
 		<add>
             <input type="value">800</input>
             <output>samples</output>
         </add>
 		
-
+        <!-- counts the number of values in the raw x-component data buffer -->
         <count>
             <input clear="false">accX</input>
             <output>count</output>
         </count>
 
+        <!-- subtracts 1 from the count -->
         <subtract>
             <input clear="false">count</input>
             <input type="value">1</input>
             <output>count-1</output>
         </subtract>
 
+        <!-- returns the first value of the time as t0 -->
         <first>
             <input clear="false">time</input>
             <output>t0</output>
         </first>
         
+        <!-- returns all values in a 1 count step to give t1 -->
         <subrange>
             <input as="from" clear="false">count-1</input>
             <input as="length" type="value">1</input>
@@ -194,29 +203,35 @@
             <output>t1</output>
         </subrange>
 
+        <!-- calculates Dt from the difference between t0 and t1-->
         <subtract>
             <input clear="false">t1</input>
             <input clear="false">t0</input>
             <output>Dt</output>
-          </subtract>
+        </subtract>
 
+        <!-- calculates dt -->
         <divide>
             <input clear="false">Dt</input>
             <input clear="false">count-1</input>
             <output>dt</output>
         </divide>
 
+        <!-- counts the number of values in the raw x-component data buffer and gives the result as the recording length -->
         <count>
             <input clear="false">accX</input>
             <output>recording_length</output>
         </count>
 
+        <!-- calculates the start based on the recording length and sample size -->
         <subtract>
             <input>recording_length</input>
             <input clear="false">samples</input>
             <output>subrange_start</output>
         </subtract>
 
+
+        <!-- returns all the values in each acceleration component (including the absolute from the designated start -->
         <subrange>
             <input clear="false" as="from">subrange_start</input>
             <input as="in" clear="false">accX</input>
@@ -241,23 +256,28 @@
             <output>time_subrange</output>
         </subrange>
 
+        <!-- returns the number of values in the X-component acceleration from the designated start to give the true sample size -->
         <count>
             <input clear="false">accX_subrange</input>
             <output>actual_samples</output>
         </count>
 
+        <!-- adds 1 to the actual number of samples -->
         <add>
             <input clear="false">actual_samples</input>
             <input type="value">1</input>
             <output>actual_samples+1</output>
         </add>
 
+        <!-- calculates the period from the actual number of samples and dt -->
         <multiply>
             <input clear="false">actual_samples</input>
             <input clear="false">dt</input>
             <output>period</output>
         </multiply>
 
+
+        <!-- calculates the Fast Fourier Transform for each accelerometer component from the designated start -->
         <fft>
             <input clear="false">accX_subrange</input>
             <output as="re">fftXX</output>
@@ -276,29 +296,34 @@
             <output as="im">fftZY</output>
         </fft>
 
+        <!-- recalculates the count from the number of values within the fftXX buffer -->
         <count>
             <input clear="false">fftXX</input>
             <output>count</output>
         </count>
 
+        <!-- calculates half the count from half the actual number of samples -->
         <divide>
             <input clear="false">actual_samples</input>
             <input type="value">2</input>
             <output>count/2</output>
         </divide>
 
+        <!-- calculates the maxf -->
         <divide>
             <input type="value">0.5</input>
             <input clear="false">dt</input>
             <output>maxf</output>
         </divide>
 
+        <!-- calculates the arate from 1/dt -->
         <divide>
             <input type="value">1</input>
             <input clear="false">dt</input>
             <output>arate</output>
         </divide>
 
+        <!-- creates a linear range of values from 0 to arate with the same number of values as the actual_samples+1 -->
         <ramp>
             <input as="start" type="value">0</input>
             <input as="stop" clear="false">arate</input>
@@ -306,6 +331,7 @@
             <output>frequency</output>
         </ramp>
 
+        <!-- returns all values from 1 to count/2 to give half the normal output values (for x-component) -->
         <subrange>
             <input as="from" type="value">1</input>
             <input as="to" clear="false">count/2</input>
@@ -317,24 +343,28 @@
             <output>halfFFTtempY</output>
         </subrange>
         
+        <!-- squares -->
         <multiply>
             <input clear="false">halfFFTtempX</input>
             <input>halfFFTtempX</input>
             <output>halfFFTtempX2</output>
         </multiply>
 
+        <!-- squares -->
         <multiply>
             <input clear="false">halfFFTtempY</input>
             <input>halfFFTtempY</input>
             <output>halfFFTtempY2</output>
         </multiply>
 
+        <!-- adds the X and Y halves together to give ffX -->
         <add>
             <input>halfFFTtempX2</input>
             <input>halfFFTtempY2</input>
             <output>fftX</output>
         </add>
 
+        <!-- returns all values from 1 to count/2 to give half the normal output values (for y-component) -->
         <subrange>
             <input as="from" type="value">1</input>
             <input as="to" clear="false">count/2</input>
@@ -346,24 +376,28 @@
             <output>halfFFTtempY</output>
         </subrange>
 
+        <!-- squares -->
         <multiply>
             <input clear="false">halfFFTtempX</input>
             <input>halfFFTtempX</input>
             <output>halfFFTtempX2</output>
         </multiply>
 
+        <!-- squares -->
         <multiply>
             <input clear="false">halfFFTtempY</input>
             <input>halfFFTtempY</input>
             <output>halfFFTtempY2</output>
         </multiply>
     
+        <!-- adds the X and Y halves together to give fftY -->
         <add>
             <input>halfFFTtempX2</input>
             <input>halfFFTtempY2</input>
             <output>fftY</output>
         </add>
 
+        <!-- returns all values from 1 to count/2 to give half the normal output values (for z-component) -->
         <subrange>
             <input as="from" type="value">1</input>
             <input as="to" clear="false">count/2</input>
@@ -375,65 +409,72 @@
             <output>halfFFTtempY</output>
         </subrange>
         
+        <!-- squares -->
         <multiply>
             <input clear="false">halfFFTtempX</input>
             <input>halfFFTtempX</input>
             <output>halfFFTtempX2</output>
         </multiply>
 
+        <!-- squares -->
         <multiply>
             <input clear="false">halfFFTtempY</input>
             <input>halfFFTtempY</input>
             <output>halfFFTtempY2</output>
         </multiply>
 
+        <!-- adds the X and Y halves together to give fftZ -->
         <add>
             <input>halfFFTtempX2</input>
             <input>halfFFTtempY2</input>
             <output>fftZ</output>
         </add>
-            
-        <add> <!-- sums fftX, fftY, fftX inputs together to the single output buffer fft2 -->
+           
+        <!-- sums fftX, fftY, fftX inputs together to the single output buffer fft2 -->
+        <add> 
             <input>fftX</input>
             <input>fftY</input>
             <input>fftZ</input>
             <output>fft2</output>
-          </add>
+        </add>
           
+        <!-- square roots -->
         <power>
             <input as="base">fft2</input>
             <input as="exponent" type="value">0.5</input>
             <output>fft</output>
-          </power>
-		  
+        </power>
+		
+        <!-- calculates the maximum fft value -->
 		<max> 
 			<input as="y" clear="false">fft</input>
 			<output as="max">maxfft</output>
         </max>
-		 
-        <max> <!-- returns the position of the maximum of Y at the half frequency X -->
+		
+        <!-- returns the x-position of the maxfft value to give the peak frequency -->
+        <max> 
           <input as="y" clear="false">fft</input>
           <input as="x" clear="false">halfFrequency</input>
           <output as="position" clear="false">f0</output>
         </max>
 		
-		
+		<!-- calculates the average and the standard deviation of the maxfft -->
 		<average>
 			<input clear="false">maxfft</input>
 			<output as="average" clear="false">maxfft_avg</output> <!-- calculates the average max FFT value -->
 			<output as="stddev">maxfft_error</output> <!-- calculates the standard deviation of the max FFT value -->
 		</average>
 		
+        <!-- calculates the average and the standard deviation of the peak frequency -->
 		<average>
 			<input clear="false">f0</input>
 			<output as="average" clear="false">f0_avg</output> <!-- calculates the average peak frequency -->
 			<output as="stddev">f0_error</output> <!-- calculates the standard deviation of the peak frequency -->
 		</average>
-		
       </analysis>
 
 
-
+    <!-- for exporting to Excel -->
     <export>
         <set name="Accelerations">
             <data name="Time (s)">time_subrange</data>
@@ -442,18 +483,18 @@
             <data name="Acceleration z (m/s²)">accZ_subrange</data>
         </set>
 
-        <set name="FFT">
-            <data name="Frequency (Hz)">f0</data>
-            <data name="Absolute Amplitude (a.u.)">fft</data>
-			<data name="Peak Frequency (a.u.)">fft</data>
-			<data name="Max FFT (a.u.)">maxfft</data>
+        <set name="FFT Graph">
+            <data name="Frequency (Hz)">halfFrequency</data>
+            <data name="FFT (a.u.)">fft</data>
+            <data name="Peak Frequency (Hz)">f0</data>
+	    <data name="Max FFT (a.u.)">maxfft</data>
         </set>
 		
-		<set name="Stats">
+	<set name="Stats">
             <data name="Avg Peak Frequency (Hz)">f0_avg</data>
             <data name="Avg Peak Frequency Error (Hz)">f0_error</data>
-			<data name="Max FFT (a.u.)">maxfft_avg</data>
-			<data name="Max FFT Error (a.u.)">maxfft_error</data>
+	    <data name="Max FFT (a.u.)">maxfft_avg</data>
+	    <data name="Max FFT Error (a.u.)">maxfft_error</data>
         </set>
     </export>
 </phyphox>
