@@ -100,7 +100,7 @@
             <value label="Number of Samples"><input>actual_samples</input></value>
             <value label="Period" unit="s" precision="2"><input>period</input></value>
             <value label="Nyquist frequency" unit="Hz" precision="0"><input>maxf</input></value>
-	    <value label="Max FFT" unit="a.u." precision="2"><input>maxfft</input></value>
+			<value label="Max FFT" unit="a.u." precision="2"><input>maxfft</input></value>
         </view>
     </views>
 
@@ -253,7 +253,7 @@
             <output>count/2</output>
         </divide>
 
-        <!-- calculates the maxf -->
+        <!-- from the Sampling theorem (Nyquist) to give the maximum frequncy -->
         <divide>
             <input type="value">0.5</input>
             <input clear="false">dt</input>
@@ -417,7 +417,7 @@
             <data name="Frequency (Hz)">halfFrequency</data>
             <data name="FFT (a.u.)">fft</data>
             <data name="Peak Frequency (Hz)">f0</data>
-	    <data name="Max FFT (a.u.)">maxfft</data>
+			<data name="Max FFT (a.u.)">maxfft</data>
         </set>
     </export>
 </phyphox>
