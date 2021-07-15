@@ -13,12 +13,14 @@
 
 
     <data-containers>
+        <!-- buffers for the raw gyroscope data -->
         <container size="0">angvel</container>
         <container size="0">angvelX</container>
         <container size="0">angvelY</container>
         <container size="0">angvelZ</container>
         <container size="0">t</container>
 
+        <!-- buffers for the histogram bars -->
         <container size="0">binStartAngVel</container>
         <container size="0">binStartX</container>
         <container size="0">binStartY</container>
@@ -29,21 +31,25 @@
         <container size="0">binCountZ</container>
         <container size="1">binSize</container>
 
+        <!-- buffers for the averages -->
         <container size="1">averageAngVel</container>
         <container size="1">averageX</container>
         <container size="1">averageY</container>
         <container size="1">averageZ</container>
 
+        <!-- buffers for the standard deviations -->
         <container size="1">deviationAngVel</container>
         <container size="1">deviationX</container>
         <container size="1">deviationY</container>
         <container size="1">deviationZ</container>
 
+        <!-- buffers for the counts -->
         <container size="1">countAngVel</container>
         <container size="1">countX</container>
         <container size="1">countY</container>
         <container size="1">countZ</container>
 
+        <!-- temporary buffers used for calculations -->
         <container size="0">temp1AngVel</container>
         <container size="0">temp1X</container>
         <container size="0">temp1Y</container>
@@ -53,6 +59,7 @@
         <container size="0">temp2Y</container>
         <container size="0">temp2Z</container>
 
+        <!-- buffers for min and max X values (used for Gaussian calculation) -->
         <container size="1">minXAngVel</container>
         <container size="1">minXX</container>
         <container size="1">minXY</container>
@@ -62,6 +69,7 @@
         <container size="1">maxXY</container>
         <container size="1">maxXZ</container>
 
+        <!-- buffers for the histogram curve -->
         <container size="500">gaussianXAngVel</container>
         <container size="500">gaussianXX</container>
         <container size="500">gaussianXY</container>
@@ -73,6 +81,7 @@
     </data-containers>
 
 
+    <!-- connecting the arduino's gyroscope to the Phyphox app -->
     <input>
         <bluetooth mode="notification" rate="1" subscribeOnStart="false" id="nano_ble">
             <output char="cddf1002-30f7-4671-8b43-5e40ba53514a" conversion="float32LittleEndian" offset="0">t</output>
@@ -194,6 +203,7 @@
 
 
     <analysis>
+        <!-- for the calculations of the histogram bars -->
         <binning>
             <input clear="false">angvel</input>
             <input clear="false" as="dx">binSize</input>
@@ -223,6 +233,7 @@
         </binning> 
 
 		
+        <!-- calculates the averages and standard deviations -->
         <average>
             <input clear="false">angvel</input>
             <output as="average">averageAngVel</output>
@@ -248,6 +259,7 @@
         </average>
         
 
+        <!-- counts the number of values in the raw data buffers -->
         <count>
             <input clear="false">angvel</input>
             <output>countAngVel</output>
@@ -269,6 +281,7 @@
         </count>
 		
 
+        <!-- calculates the minX for each component (including absolute) for the histogram -->
         <subrange>
             <input as="from" type="value">0</input>
             <input as="length" type="value">1</input>
@@ -298,6 +311,7 @@
         </subrange>
 
 
+        <!-- appends all values to a single temporary output buffer used for calculations later on -->
         <append>
             <input clear="false">binStartAngVel</input>
             <output>temp1AngVel</output>
@@ -319,6 +333,7 @@
         </append>
 
 
+        <!-- calculates the minX for each component (including absolute) for the histogram adding the binStart values and the binSize -->
         <add>
             <input>temp1AngVel</input>
             <input clear="false">binSize</input>
@@ -344,6 +359,7 @@
         </add>
         
 
+        <!-- creates a linear range of values from the first X to the last X data point using as many values as the size of the output buffer (500 in this case) -->
         <ramp>
             <input as="start" clear="false">minXAngVel</input>
             <input as="stop" clear="false">maxXAngVel</input>
@@ -369,6 +385,7 @@
         </ramp>
 
 
+        <!-- subtracts the average Y value from the Gaussian X value-->
         <subtract>
             <input clear="false">gaussianXAngVel</input>
             <input clear="false">averageAngVel</input>
@@ -394,6 +411,7 @@
         </subtract>
 
 
+        <!-- squares the temporary buffers -->
         <multiply>
             <input clear="false">temp1AngVel</input>
             <input>temp1AngVel</input>
@@ -419,6 +437,7 @@
         </multiply>
        
 
+        <!-- scaling down -->
         <divide>
             <input>temp2AngVel</input>
             <input type="value">-2</input>
@@ -452,6 +471,7 @@
         </divide>
 
 
+        <!-- scaling up (e^temp1...)-->
         <power>
             <input as="base" type="value">2.7182818284</input> <!-- e -->
             <input as="exponent">temp1AngVel</input>
@@ -477,6 +497,7 @@
         </power>
         
 
+        <!-- scaling down -->
         <divide>
             <input>temp2AngVel</input>
             <input type="value">2.506628275</input> <!-- sqrt(2pi) -->
@@ -506,6 +527,7 @@
         </divide>
         
 
+        <!-- calculates the Gaussian Y value for each component -->
         <multiply>
             <input>temp1AngVel</input>
             <input clear="false">binSize</input>
@@ -536,6 +558,7 @@
     </analysis>
 
 
+    <!-- for exporting to Excel -->
     <export>
         <set name="Data">
             <data name="t (s)">t</data>
