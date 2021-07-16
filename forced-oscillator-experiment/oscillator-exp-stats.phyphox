@@ -108,7 +108,7 @@
             <value label="Number of Samples"><input>actual_samples</input></value>
             <value label="Period" unit="s" precision="2"><input>period</input></value>
             <value label="Nyquist frequency" unit="Hz" precision="0"><input>maxf</input></value>
-			<value label="Max FFT" unit="a.u." precision="2"><input>maxfft</input></value>
+	    <value label="Max FFT" unit="a.u." precision="2"><input>maxfft</input></value>
 			
 	    <separator height="2"/>
 
