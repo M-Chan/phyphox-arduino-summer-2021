@@ -1,5 +1,10 @@
 /*
-  Access sensor data on Arduino Nano for transfer to Phyphox
+Link between Arduino Nano 33 BLE IMU and phyphox app v1
+Allows to choose which experiment the Arduino Nano 33 BLE Sense should execute, using Phyphox.
+by Gautier Creutzer and Frédéric Bouquet, La Physique Autrement / Physics Reimagined, Laboratoire de Physique des Solides / Laboratory of Solid state Physics, Université Paris-Saclay / Paris-Saclay University
+
+This work is based on the phyphox Arduino library developed by the phyphox team at the RWTH Aachen University, which is released under the GNU Lesser General Public Licence v3.0 (or newer).
+This work is released under the GNU Lesser General Public Licence v3.0 (or newer).
  */
 
 #include <phyphoxBle.h> 
